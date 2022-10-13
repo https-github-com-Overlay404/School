@@ -1,0 +1,89 @@
+C:\Users\Overlay\Desktop\School\School\bin\Debug\School.exe.config
+C:\Users\Overlay\Desktop\School\School\bin\Debug\School.exe
+C:\Users\Overlay\Desktop\School\School\bin\Debug\School.pdb
+C:\Users\Overlay\Desktop\School\School\bin\Debug\EntityFramework.dll
+C:\Users\Overlay\Desktop\School\School\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Overlay\Desktop\School\School\bin\Debug\EntityFramework.xml
+C:\Users\Overlay\Desktop\School\School\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Overlay\Desktop\School\School\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.csproj.AssemblyReference.cache
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.csproj.SuggestedBindingRedirects.cache
+C:\Users\Overlay\Desktop\School\School\obj\Debug\MainWindow.g.cs
+C:\Users\Overlay\Desktop\School\School\obj\Debug\App.g.cs
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School_Content.g.cs
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School_MarkupCompile.cache
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School_MarkupCompile.lref
+C:\Users\Overlay\Desktop\School\School\obj\Debug\MainWindow.baml
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.g.resources
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.Properties.Resources.resources
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.csproj.GenerateResource.cache
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.csproj.CoreCompileInputs.cache
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.csproj.CopyComplete
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.exe
+C:\Users\Overlay\Desktop\School\School\obj\Debug\School.pdb
+C:\Users\Overlay\Desktop\School\School\obj\Debug\StudentWindow.g.cs
+C:\Users\Overlay\Desktop\School\School\obj\Debug\StudentWindow.baml
+C:\Users\Overlay\Desktop\School\School\obj\Debug\Teacher.g.cs
+C:\Users\Overlay\Desktop\School\School\obj\Debug\Teacher.baml
+C:\Users\Overlay\Desktop\School\School\obj\Debug\App.baml
+C:\Users\Overlay\Desktop\School\School\obj\Debug\Administrator.g.cs
+C:\Users\Overlay\Desktop\School\School\obj\Debug\Administrator.baml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.csprojAssemblyReference.cache
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\Administrator.g.cs
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\MainWindow.g.cs
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\StudentWindow.g.cs
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\Teacher.g.cs
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\App.g.cs
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School_Content.g.cs
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School_MarkupCompile.cache
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School_MarkupCompile.lref
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.exe
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.pdb
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\School.exe.config
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\School.exe
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\School.pdb
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\EntityFramework.dll
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\EntityFramework.SqlServer.dll
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\EntityFramework.xml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\EntityFramework.SqlServer.xml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\bin\Debug\ru\EntityFramework.resources.dll
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\App.baml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\Administrator.baml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\MainWindow.baml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\StudentWindow.baml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\Teacher.baml
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.g.resources
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.Properties.Resources.resources
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.csproj.GenerateResource.cache
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.csproj.CoreCompileInputs.cache
+\\NAS36D451\user-domain$\stud\232002\Downloads\School-master (2)\School-master\School\obj\Debug\School.csproj.CopyComplete
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\School.exe.config
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\School.exe
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\School.pdb
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\EntityFramework.dll
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\EntityFramework.SqlServer.dll
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\EntityFramework.xml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\EntityFramework.SqlServer.xml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\bin\Debug\ru\EntityFramework.resources.dll
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.csproj.AssemblyReference.cache
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.csproj.SuggestedBindingRedirects.cache
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\Administrator.g.cs
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\MainWindow.g.cs
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\StudentWindow.g.cs
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\Teacher.g.cs
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\App.g.cs
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School_Content.g.cs
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School_MarkupCompile.cache
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School_MarkupCompile.lref
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\App.baml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\Administrator.baml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\MainWindow.baml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\StudentWindow.baml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\Teacher.baml
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.g.resources
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.Properties.Resources.resources
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.csproj.GenerateResource.cache
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.csproj.CoreCompileInputs.cache
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.csproj.CopyComplete
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.exe
+\\NAS36D451\user-domain$\stud\232002\Desktop\School-master\School\obj\Debug\School.pdb

@@ -1,0 +1,643 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище School1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cabinet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdTypeCabinet" Type="int" Nullable="false" />
+          <Property Name="Number" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdJobTitle" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="int" Nullable="false" />
+          <Property Name="Password" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobTitle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="MaximumNumberOfStudents" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LessonEmployee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLesson" Type="int" Nullable="false" />
+          <Property Name="IdEmployees" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLessonEmployee" Type="int" Nullable="false" />
+          <Property Name="NumberCabinet" Type="int" Nullable="false" />
+          <Property Name="DataTimeStart" Type="datetime" Nullable="false" />
+          <Property Name="DataTimeFinich" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="IdClass" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Login" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeCabinet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VisitLeson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSchedule" Type="int" Nullable="false" />
+          <Property Name="IdStudent" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cabinet_TypeCabinet">
+          <End Role="TypeCabinet" Type="Self.TypeCabinet" Multiplicity="1" />
+          <End Role="Cabinet" Type="Self.Cabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeCabinet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cabinet">
+              <PropertyRef Name="IdTypeCabinet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_JobTitle">
+          <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IdJobTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonEmployee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LessonEmployee">
+              <PropertyRef Name="IdEmployees" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonEmployee_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LessonEmployee">
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Cabinet">
+          <End Role="Cabinet" Type="Self.Cabinet" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cabinet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="NumberCabinet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_LessonEmployee">
+          <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonEmployee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="IdLessonEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitLeson_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="VisitLeson">
+              <PropertyRef Name="IdSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitLeson_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="VisitLeson">
+              <PropertyRef Name="IdStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище School1ModelContainer">
+          <EntitySet Name="Cabinet" EntityType="Self.Cabinet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobTitle" EntityType="Self.JobTitle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LessonEmployee" EntityType="Self.LessonEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeCabinet" EntityType="Self.TypeCabinet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VisitLeson" EntityType="Self.VisitLeson" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Cabinet_TypeCabinet" Association="Self.FK_Cabinet_TypeCabinet">
+            <End Role="TypeCabinet" EntitySet="TypeCabinet" />
+            <End Role="Cabinet" EntitySet="Cabinet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_JobTitle" Association="Self.FK_Employee_JobTitle">
+            <End Role="JobTitle" EntitySet="JobTitle" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonEmployee_Employee" Association="Self.FK_LessonEmployee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="LessonEmployee" EntitySet="LessonEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonEmployee_Lesson" Association="Self.FK_LessonEmployee_Lesson">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="LessonEmployee" EntitySet="LessonEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Cabinet" Association="Self.FK_Schedule_Cabinet">
+            <End Role="Cabinet" EntitySet="Cabinet" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_LessonEmployee" Association="Self.FK_Schedule_LessonEmployee">
+            <End Role="LessonEmployee" EntitySet="LessonEmployee" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitLeson_Schedule" Association="Self.FK_VisitLeson_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="VisitLeson" EntitySet="VisitLeson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitLeson_Student" Association="Self.FK_VisitLeson_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="VisitLeson" EntitySet="VisitLeson" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="School1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cabinet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdTypeCabinet" Type="Int32" Nullable="false" />
+          <Property Name="Number" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TypeCabinet" Relationship="Self.FK_Cabinet_TypeCabinet" FromRole="Cabinet" ToRole="TypeCabinet" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Cabinet" FromRole="Cabinet" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Class">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_Student_Class" FromRole="Class" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdJobTitle" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="Int32" Nullable="false" />
+          <Property Name="Password" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="JobTitle" Relationship="Self.FK_Employee_JobTitle" FromRole="Employee" ToRole="JobTitle" />
+          <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_LessonEmployee_Employee" FromRole="Employee" ToRole="LessonEmployee" />
+        </EntityType>
+        <EntityType Name="JobTitle">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_JobTitle" FromRole="JobTitle" ToRole="Employee" />
+        </EntityType>
+        <EntityType Name="Lesson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MaximumNumberOfStudents" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_LessonEmployee_Lesson" FromRole="Lesson" ToRole="LessonEmployee" />
+        </EntityType>
+        <EntityType Name="LessonEmployee">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLesson" Type="Int32" Nullable="false" />
+          <Property Name="IdEmployees" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.FK_LessonEmployee_Employee" FromRole="LessonEmployee" ToRole="Employee" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK_LessonEmployee_Lesson" FromRole="LessonEmployee" ToRole="Lesson" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_LessonEmployee" FromRole="LessonEmployee" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLessonEmployee" Type="Int32" Nullable="false" />
+          <Property Name="NumberCabinet" Type="Int32" Nullable="false" />
+          <Property Name="DataTimeStart" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DataTimeFinich" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Cabinet" Relationship="Self.FK_Schedule_Cabinet" FromRole="Schedule" ToRole="Cabinet" />
+          <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_Schedule_LessonEmployee" FromRole="Schedule" ToRole="LessonEmployee" />
+          <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Schedule" FromRole="Schedule" ToRole="VisitLeson" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="IdClass" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Login" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Class" Relationship="Self.FK_Student_Class" FromRole="Student" ToRole="Class" />
+          <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Student" FromRole="Student" ToRole="VisitLeson" />
+        </EntityType>
+        <EntityType Name="TypeCabinet">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Cabinet" Relationship="Self.FK_Cabinet_TypeCabinet" FromRole="TypeCabinet" ToRole="Cabinet" />
+        </EntityType>
+        <EntityType Name="VisitLeson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSchedule" Type="Int32" Nullable="false" />
+          <Property Name="IdStudent" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Schedule" Relationship="Self.FK_VisitLeson_Schedule" FromRole="VisitLeson" ToRole="Schedule" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_VisitLeson_Student" FromRole="VisitLeson" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK_Cabinet_TypeCabinet">
+          <End Role="TypeCabinet" Type="Self.TypeCabinet" Multiplicity="1" />
+          <End Role="Cabinet" Type="Self.Cabinet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeCabinet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Cabinet">
+              <PropertyRef Name="IdTypeCabinet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Cabinet">
+          <End Role="Cabinet" Type="Self.Cabinet" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cabinet">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="NumberCabinet" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Student_Class">
+          <End Role="Class" Type="Self.Class" Multiplicity="1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Class">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="IdClass" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Employee_JobTitle">
+          <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="1" />
+          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JobTitle">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Employee">
+              <PropertyRef Name="IdJobTitle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonEmployee_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LessonEmployee">
+              <PropertyRef Name="IdEmployees" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LessonEmployee_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="LessonEmployee">
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_LessonEmployee">
+          <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LessonEmployee">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="IdLessonEmployee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitLeson_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
+          <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="VisitLeson">
+              <PropertyRef Name="IdSchedule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VisitLeson_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="VisitLeson">
+              <PropertyRef Name="IdStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="School1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cabinet" EntityType="Self.Cabinet" />
+          <EntitySet Name="Class" EntityType="Self.Class" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" />
+          <EntitySet Name="JobTitle" EntityType="Self.JobTitle" />
+          <EntitySet Name="Lesson" EntityType="Self.Lesson" />
+          <EntitySet Name="LessonEmployee" EntityType="Self.LessonEmployee" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="TypeCabinet" EntityType="Self.TypeCabinet" />
+          <EntitySet Name="VisitLeson" EntityType="Self.VisitLeson" />
+          <AssociationSet Name="FK_Cabinet_TypeCabinet" Association="Self.FK_Cabinet_TypeCabinet">
+            <End Role="TypeCabinet" EntitySet="TypeCabinet" />
+            <End Role="Cabinet" EntitySet="Cabinet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Cabinet" Association="Self.FK_Schedule_Cabinet">
+            <End Role="Cabinet" EntitySet="Cabinet" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
+            <End Role="Class" EntitySet="Class" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_JobTitle" Association="Self.FK_Employee_JobTitle">
+            <End Role="JobTitle" EntitySet="JobTitle" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonEmployee_Employee" Association="Self.FK_LessonEmployee_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="LessonEmployee" EntitySet="LessonEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LessonEmployee_Lesson" Association="Self.FK_LessonEmployee_Lesson">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="LessonEmployee" EntitySet="LessonEmployee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_LessonEmployee" Association="Self.FK_Schedule_LessonEmployee">
+            <End Role="LessonEmployee" EntitySet="LessonEmployee" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitLeson_Schedule" Association="Self.FK_VisitLeson_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="VisitLeson" EntitySet="VisitLeson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VisitLeson_Student" Association="Self.FK_VisitLeson_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="VisitLeson" EntitySet="VisitLeson" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище School1ModelContainer" CdmEntityContainer="School1Entities">
+          <EntitySetMapping Name="Cabinet">
+            <EntityTypeMapping TypeName="School1Model.Cabinet">
+              <MappingFragment StoreEntitySet="Cabinet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdTypeCabinet" ColumnName="IdTypeCabinet" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Class">
+            <EntityTypeMapping TypeName="School1Model.Class">
+              <MappingFragment StoreEntitySet="Class">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="School1Model.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdJobTitle" ColumnName="IdJobTitle" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobTitle">
+            <EntityTypeMapping TypeName="School1Model.JobTitle">
+              <MappingFragment StoreEntitySet="JobTitle">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lesson">
+            <EntityTypeMapping TypeName="School1Model.Lesson">
+              <MappingFragment StoreEntitySet="Lesson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaximumNumberOfStudents" ColumnName="MaximumNumberOfStudents" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LessonEmployee">
+            <EntityTypeMapping TypeName="School1Model.LessonEmployee">
+              <MappingFragment StoreEntitySet="LessonEmployee">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+                <ScalarProperty Name="IdEmployees" ColumnName="IdEmployees" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="School1Model.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdLessonEmployee" ColumnName="IdLessonEmployee" />
+                <ScalarProperty Name="NumberCabinet" ColumnName="NumberCabinet" />
+                <ScalarProperty Name="DataTimeStart" ColumnName="DataTimeStart" />
+                <ScalarProperty Name="DataTimeFinich" ColumnName="DataTimeFinich" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="School1Model.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdClass" ColumnName="IdClass" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeCabinet">
+            <EntityTypeMapping TypeName="School1Model.TypeCabinet">
+              <MappingFragment StoreEntitySet="TypeCabinet">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitLeson">
+            <EntityTypeMapping TypeName="School1Model.VisitLeson">
+              <MappingFragment StoreEntitySet="VisitLeson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
+                <ScalarProperty Name="IdStudent" ColumnName="IdStudent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
