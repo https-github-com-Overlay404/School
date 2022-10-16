@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,14 +27,23 @@ namespace School
 
             MainWindow mainWindow = new MainWindow();
             MessageBox.Show("" + IdUSer.Id);
-            using (School1Entities bd = new School1Entities())
+            ArrayList indexLesson = new ArrayList();
+            using (SchoolEntities bd = new SchoolEntities())
             {
                 var query = bd.Student.Where(student => student.id == IdUSer.Id);
                 foreach (var entity in query)
                 {
-                   
-                    NameStudent.Text = entity.id + " " + entity.Name + " " + entity.Surname + "\n" + entity.Login + " " + entity.Password;
+                    NameStudent.Text = entity.Name + " " + entity.Surname;
                 }
+
+                var query1 = bd.VisitLeson.Where(visitlesson => visitlesson.IdStudent == IdUSer.Id);
+                foreach(var entity in query1)
+                {
+                    indexLesson.Add(entity.IdLesson);
+                }
+                foreach(var entity in indexLesson)
+                    var query2 = bd.Lesson.Where(p => p.id == entity)
+
             }
         }
 

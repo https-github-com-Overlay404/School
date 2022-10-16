@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Хранилище School1ModelContainer" CdmEntityContainer="School1Entities">
+  <EntityContainerMapping StorageEntityContainer="Хранилище SchoolModelContainer" CdmEntityContainer="SchoolEntities">
     <EntitySetMapping Name="Cabinet">
-      <EntityTypeMapping TypeName="School1Model.Cabinet">
+      <EntityTypeMapping TypeName="SchoolModel.Cabinet">
         <MappingFragment StoreEntitySet="Cabinet">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="IdTypeCabinet" ColumnName="IdTypeCabinet" />
           <ScalarProperty Name="Number" ColumnName="Number" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Class">
-      <EntityTypeMapping TypeName="School1Model.Class">
+      <EntityTypeMapping TypeName="SchoolModel.Class">
         <MappingFragment StoreEntitySet="Class">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -19,7 +18,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Employee">
-      <EntityTypeMapping TypeName="School1Model.Employee">
+      <EntityTypeMapping TypeName="SchoolModel.Employee">
         <MappingFragment StoreEntitySet="Employee">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="IdJobTitle" ColumnName="IdJobTitle" />
@@ -28,11 +27,12 @@
           <ScalarProperty Name="Lastname" ColumnName="Lastname" />
           <ScalarProperty Name="Login" ColumnName="Login" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Activ" ColumnName="Activ" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="JobTitle">
-      <EntityTypeMapping TypeName="School1Model.JobTitle">
+      <EntityTypeMapping TypeName="SchoolModel.JobTitle">
         <MappingFragment StoreEntitySet="JobTitle">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -40,16 +40,17 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Lesson">
-      <EntityTypeMapping TypeName="School1Model.Lesson">
+      <EntityTypeMapping TypeName="SchoolModel.Lesson">
         <MappingFragment StoreEntitySet="Lesson">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="MaximumNumberOfStudents" ColumnName="MaximumNumberOfStudents" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="LessonEmployee">
-      <EntityTypeMapping TypeName="School1Model.LessonEmployee">
+      <EntityTypeMapping TypeName="SchoolModel.LessonEmployee">
         <MappingFragment StoreEntitySet="LessonEmployee">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
@@ -58,18 +59,18 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Schedule">
-      <EntityTypeMapping TypeName="School1Model.Schedule">
+      <EntityTypeMapping TypeName="SchoolModel.Schedule">
         <MappingFragment StoreEntitySet="Schedule">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="IdLessonEmployee" ColumnName="IdLessonEmployee" />
           <ScalarProperty Name="NumberCabinet" ColumnName="NumberCabinet" />
+          <ScalarProperty Name="idLessonEmployee" ColumnName="idLessonEmployee" />
           <ScalarProperty Name="DataTimeStart" ColumnName="DataTimeStart" />
           <ScalarProperty Name="DataTimeFinich" ColumnName="DataTimeFinich" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Student">
-      <EntityTypeMapping TypeName="School1Model.Student">
+      <EntityTypeMapping TypeName="SchoolModel.Student">
         <MappingFragment StoreEntitySet="Student">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="IdClass" ColumnName="IdClass" />
@@ -78,23 +79,17 @@
           <ScalarProperty Name="Lastname" ColumnName="Lastname" />
           <ScalarProperty Name="Login" ColumnName="Login" />
           <ScalarProperty Name="Password" ColumnName="Password" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="TypeCabinet">
-      <EntityTypeMapping TypeName="School1Model.TypeCabinet">
-        <MappingFragment StoreEntitySet="TypeCabinet">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Activ" ColumnName="Activ" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="VisitLeson">
-      <EntityTypeMapping TypeName="School1Model.VisitLeson">
+      <EntityTypeMapping TypeName="SchoolModel.VisitLeson">
         <MappingFragment StoreEntitySet="VisitLeson">
           <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="IdSchedule" ColumnName="IdSchedule" />
+          <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
           <ScalarProperty Name="IdStudent" ColumnName="IdStudent" />
+          <ScalarProperty Name="Presence" ColumnName="Presence" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

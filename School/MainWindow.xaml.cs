@@ -48,7 +48,7 @@ namespace School
                     return;
                 }
                 #region check login and password
-                using (School1Entities school1Entities = new School1Entities())
+                using (SchoolEntities school1Entities = new SchoolEntities())
                 {
                     var query = school1Entities.Employee.Where(employee => employee.IdJobTitle == 2);
                     foreach(var entity in query)

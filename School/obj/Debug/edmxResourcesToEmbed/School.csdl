@@ -1,13 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="School1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Cabinet">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IdTypeCabinet" Type="Int32" Nullable="false" />
     <Property Name="Number" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="TypeCabinet" Relationship="Self.FK_Cabinet_TypeCabinet" FromRole="Cabinet" ToRole="TypeCabinet" />
     <NavigationProperty Name="Schedule" Relationship="Self.FK_Schedule_Cabinet" FromRole="Cabinet" ToRole="Schedule" />
   </EntityType>
   <EntityType Name="Class">
@@ -22,13 +20,14 @@
     <Key>
       <PropertyRef Name="id" />
     </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id" Type="Int32" Nullable="false" />
     <Property Name="IdJobTitle" Type="Int32" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Login" Type="Int32" Nullable="false" />
+    <Property Name="Login" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Password" Type="Int32" Nullable="false" />
+    <Property Name="Activ" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="JobTitle" Relationship="Self.FK_Employee_JobTitle" FromRole="Employee" ToRole="JobTitle" />
     <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_LessonEmployee_Employee" FromRole="Employee" ToRole="LessonEmployee" />
   </EntityType>
@@ -47,7 +46,9 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="MaximumNumberOfStudents" Type="Int32" Nullable="false" />
+    <Property Name="Active" Type="Boolean" />
     <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_LessonEmployee_Lesson" FromRole="Lesson" ToRole="LessonEmployee" />
+    <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Lesson" FromRole="Lesson" ToRole="VisitLeson" />
   </EntityType>
   <EntityType Name="LessonEmployee">
     <Key>
@@ -65,13 +66,12 @@
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IdLessonEmployee" Type="Int32" Nullable="false" />
     <Property Name="NumberCabinet" Type="Int32" Nullable="false" />
-    <Property Name="DataTimeStart" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="DataTimeFinich" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="idLessonEmployee" Type="Int32" Nullable="false" />
+    <Property Name="DataTimeStart" Type="DateTime" Precision="3" />
+    <Property Name="DataTimeFinich" Type="DateTime" Precision="3" />
     <NavigationProperty Name="Cabinet" Relationship="Self.FK_Schedule_Cabinet" FromRole="Schedule" ToRole="Cabinet" />
     <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_Schedule_LessonEmployee" FromRole="Schedule" ToRole="LessonEmployee" />
-    <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Schedule" FromRole="Schedule" ToRole="VisitLeson" />
   </EntityType>
   <EntityType Name="Student">
     <Key>
@@ -84,39 +84,21 @@
     <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Login" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activ" Type="Boolean" />
     <NavigationProperty Name="Class" Relationship="Self.FK_Student_Class" FromRole="Student" ToRole="Class" />
     <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Student" FromRole="Student" ToRole="VisitLeson" />
-  </EntityType>
-  <EntityType Name="TypeCabinet">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Cabinet" Relationship="Self.FK_Cabinet_TypeCabinet" FromRole="TypeCabinet" ToRole="Cabinet" />
   </EntityType>
   <EntityType Name="VisitLeson">
     <Key>
       <PropertyRef Name="id" />
     </Key>
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="IdSchedule" Type="Int32" Nullable="false" />
+    <Property Name="IdLesson" Type="Int32" Nullable="false" />
     <Property Name="IdStudent" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Schedule" Relationship="Self.FK_VisitLeson_Schedule" FromRole="VisitLeson" ToRole="Schedule" />
+    <Property Name="Presence" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Lesson" Relationship="Self.FK_VisitLeson_Lesson" FromRole="VisitLeson" ToRole="Lesson" />
     <NavigationProperty Name="Student" Relationship="Self.FK_VisitLeson_Student" FromRole="VisitLeson" ToRole="Student" />
   </EntityType>
-  <Association Name="FK_Cabinet_TypeCabinet">
-    <End Role="TypeCabinet" Type="Self.TypeCabinet" Multiplicity="1" />
-    <End Role="Cabinet" Type="Self.Cabinet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="TypeCabinet">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="Cabinet">
-        <PropertyRef Name="IdTypeCabinet" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Schedule_Cabinet">
     <End Role="Cabinet" Type="Self.Cabinet" Multiplicity="1" />
     <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -177,6 +159,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_VisitLeson_Lesson">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+    <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="VisitLeson">
+        <PropertyRef Name="IdLesson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Schedule_LessonEmployee">
     <End Role="LessonEmployee" Type="Self.LessonEmployee" Multiplicity="1" />
     <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
@@ -185,19 +179,7 @@
         <PropertyRef Name="id" />
       </Principal>
       <Dependent Role="Schedule">
-        <PropertyRef Name="IdLessonEmployee" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_VisitLeson_Schedule">
-    <End Role="Schedule" Type="Self.Schedule" Multiplicity="1" />
-    <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Schedule">
-        <PropertyRef Name="id" />
-      </Principal>
-      <Dependent Role="VisitLeson">
-        <PropertyRef Name="IdSchedule" />
+        <PropertyRef Name="idLessonEmployee" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -213,7 +195,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="School1Entities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="SchoolEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Cabinet" EntityType="Self.Cabinet" />
     <EntitySet Name="Class" EntityType="Self.Class" />
     <EntitySet Name="Employee" EntityType="Self.Employee" />
@@ -222,12 +204,7 @@
     <EntitySet Name="LessonEmployee" EntityType="Self.LessonEmployee" />
     <EntitySet Name="Schedule" EntityType="Self.Schedule" />
     <EntitySet Name="Student" EntityType="Self.Student" />
-    <EntitySet Name="TypeCabinet" EntityType="Self.TypeCabinet" />
     <EntitySet Name="VisitLeson" EntityType="Self.VisitLeson" />
-    <AssociationSet Name="FK_Cabinet_TypeCabinet" Association="Self.FK_Cabinet_TypeCabinet">
-      <End Role="TypeCabinet" EntitySet="TypeCabinet" />
-      <End Role="Cabinet" EntitySet="Cabinet" />
-    </AssociationSet>
     <AssociationSet Name="FK_Schedule_Cabinet" Association="Self.FK_Schedule_Cabinet">
       <End Role="Cabinet" EntitySet="Cabinet" />
       <End Role="Schedule" EntitySet="Schedule" />
@@ -248,13 +225,13 @@
       <End Role="Lesson" EntitySet="Lesson" />
       <End Role="LessonEmployee" EntitySet="LessonEmployee" />
     </AssociationSet>
+    <AssociationSet Name="FK_VisitLeson_Lesson" Association="Self.FK_VisitLeson_Lesson">
+      <End Role="Lesson" EntitySet="Lesson" />
+      <End Role="VisitLeson" EntitySet="VisitLeson" />
+    </AssociationSet>
     <AssociationSet Name="FK_Schedule_LessonEmployee" Association="Self.FK_Schedule_LessonEmployee">
       <End Role="LessonEmployee" EntitySet="LessonEmployee" />
       <End Role="Schedule" EntitySet="Schedule" />
-    </AssociationSet>
-    <AssociationSet Name="FK_VisitLeson_Schedule" Association="Self.FK_VisitLeson_Schedule">
-      <End Role="Schedule" EntitySet="Schedule" />
-      <End Role="VisitLeson" EntitySet="VisitLeson" />
     </AssociationSet>
     <AssociationSet Name="FK_VisitLeson_Student" Association="Self.FK_VisitLeson_Student">
       <End Role="Student" EntitySet="Student" />

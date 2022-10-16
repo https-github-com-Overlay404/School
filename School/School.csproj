@@ -113,9 +113,6 @@
     <Compile Include="Teacher.xaml.cs">
       <DependentUpon>Teacher.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TypeCabinet.cs">
-      <DependentUpon>School.tt</DependentUpon>
-    </Compile>
     <Compile Include="VisitLeson.cs">
       <DependentUpon>School.tt</DependentUpon>
     </Compile>
@@ -179,21 +176,26 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="WhiteLogo.png" />
-    <Resource Include="Log_main.png" />
+    <Resource Include="Picture\WhiteLogo.png" />
+    <Resource Include="Picture\Log_main.png" />
+    <Resource Include="Picture\TeacherPic.png" />
+    <Resource Include="Picture\AdminPic.png" />
+    <Resource Include="Picture\PidorPic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="School.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>School.Context.cs</LastGenOutput>
       <DependentUpon>School.edmx</DependentUpon>
+      <LastGenOutput>School.Context.cs</LastGenOutput>
     </Content>
     <Content Include="School.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>School.edmx</DependentUpon>
       <LastGenOutput>School.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

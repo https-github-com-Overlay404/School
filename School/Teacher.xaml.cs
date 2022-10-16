@@ -24,7 +24,7 @@ namespace School
             InitializeComponent();
 
             MainWindow mainWindow = new MainWindow();
-            using (School1Entities bd = new School1Entities())
+            using (SchoolEntities bd = new SchoolEntities())
             {
                 var query = bd.Employee.Where(employee => employee.id == IdUSer.Id);
                 foreach (var entity in query)
