@@ -36,14 +36,15 @@ namespace School
                     NameStudent.Text = entity.Name + " " + entity.Surname;
                 }
 
-                var query1 = bd.VisitLeson.Where(visitlesson => visitlesson.IdStudent == IdUSer.Id);
-                foreach(var entity in query1)
+                var queryLesson = from less in bd.Lesson
+                                  from visitLeson in less.VisitLeson
+                                  from student in query
+                                  where visitLeson.IdLesson == student.id
+                                  select less;
+                foreach (var entity in queryLesson)
                 {
-                    indexLesson.Add(entity.IdLesson);
+                    ListLesson.Items.Add(entity.Name);
                 }
-                foreach(var entity in indexLesson)
-                    var query2 = bd.Lesson.Where(p => p.id == entity)
-
             }
         }
 
