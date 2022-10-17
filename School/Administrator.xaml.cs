@@ -24,7 +24,6 @@ namespace School
         {
             InitializeComponent();
 
-            MainWindow mainWindow = new MainWindow();
             using (SchoolEntities bd = new SchoolEntities())
             {
                 var query = bd.Employee.Where(employee => employee.id == IdUSer.Id);
@@ -37,8 +36,7 @@ namespace School
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            new MainWindow().Show();
         }
     }
 }

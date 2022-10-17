@@ -25,22 +25,41 @@ namespace School
         {
             InitializeComponent();
 
-            MainWindow mainWindow = new MainWindow();
-            MessageBox.Show("" + IdUSer.Id);
-            ArrayList indexLesson = new ArrayList();
             using (SchoolEntities bd = new SchoolEntities())
             {
+
                 var query = bd.Student.Where(student => student.id == IdUSer.Id);
-                foreach (var entity in query)
-                {
-                    NameStudent.Text = entity.Name + " " + entity.Surname;
-                }
+
+                var queryClass = from classStudent in bd.Class
+                                 from student in query
+                                 where student.IdClass == classStudent.id
+                                 select classStudent;
 
                 var queryLesson = from less in bd.Lesson
                                   from visitLeson in less.VisitLeson
                                   from student in query
-                                  where visitLeson.IdLesson == student.id
+                                  where visitLeson.IdStudent == student.id
                                   select less;
+
+                var queryLessonEmployee = (from employee in bd.Employee
+                                          from lessonEmployee in employee.LessonEmployee
+                                          from lessonStudent in bd.VisitLeson
+                                          from studen in bd.Student
+                                          where studen.id == studen.id
+                                          select employee).Distinct();
+
+                foreach (var entity in query)
+                {
+                    NameStudent.Text = entity.Name + " " + entity.Surname;
+                }
+                foreach (var entity in queryClass)
+                {
+                    ClassStudent.Text += entity.Name + "\n";
+                }
+                foreach(var entity in queryLessonEmployee)
+                {
+                    ClassStudent.Text += entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n";
+                }
                 foreach (var entity in queryLesson)
                 {
                     ListLesson.Items.Add(entity.Name);
@@ -48,15 +67,7 @@ namespace School
             }
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-        }
+        private void Window_Closed(object sender, EventArgs e) => new MainWindow().Show();
 
-        private void Update_lessens(object sender, RoutedEventArgs e)
-        {
-            
-        }
     }
 }

@@ -23,9 +23,6 @@ namespace School
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        public string connection = @"Data Source=OVER\SQLSERSTUDY;Initial Catalog=School;Integrated Security=True";
-        bool f = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,8 +40,8 @@ namespace School
                 catch (System.FormatException)
                 {
                     InfoMessage.Text = "В поле логина и пароля можно ввести только число";
-                    LoginTextBox.Text = "";
-                    PasswordBox.Password= "";
+                    LoginTextBox.Clear();
+                    PasswordBox.Clear();
                     return;
                 }
                 #region check login and password
@@ -56,10 +53,9 @@ namespace School
                         if(Convert.ToInt32(LoginTextBox.Text) == entity.Login && Convert.ToInt32(PasswordBox.Password) == entity.Password)
                         {
                             IdUSer.Id = entity.id;
-                            Teacher teacher = new Teacher();
-                            teacher.Show();
-                            this.Hide();
-                            f = true;
+                            new Teacher().Show();
+                            Hide();
+                            return;
                         }
                     }
                     query = school1Entities.Employee.Where(employee => employee.IdJobTitle != 2);
@@ -68,10 +64,9 @@ namespace School
                         if (Convert.ToInt32(LoginTextBox.Text) == entity.Login && Convert.ToInt32(PasswordBox.Password) == entity.Password)
                         {
                             IdUSer.Id = entity.id;
-                            Administrator administrator = new Administrator();
-                            administrator.Show();
-                            this.Hide();
-                            f = true;
+                            new Administrator().Show();
+                            Hide();
+                            return;
                         }
                     }
                     var queryStudent = school1Entities.Student;
@@ -80,17 +75,14 @@ namespace School
                         if (Convert.ToInt32(LoginTextBox.Text) == entity.Login && PasswordBox.Password == entity.Password)
                         {
                             IdUSer.Id = entity.id;
-                            StudentWindow studentWindow = new StudentWindow();
-                            studentWindow.Show();
-                            this.Hide();
-                            f = true;
+                            new StudentWindow().Show();
+                            Hide();
+                            return;
                         }
                     }
                 }
-                if (!f)
-                {
                     InfoMessage.Text = "Логин или пароль неверный";
-                }
+
                 #endregion
             }
             else
@@ -100,10 +92,7 @@ namespace School
 
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Application.Current.Shutdown();
-        }
+        private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();
     }
     public class IdUSer
     {
