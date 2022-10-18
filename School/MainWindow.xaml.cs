@@ -37,7 +37,7 @@ namespace School
                     int s = Convert.ToInt32(LoginTextBox.Text);
                     int d = Convert.ToInt32(PasswordBox.Password);
                 }
-                catch (System.FormatException)
+                catch (FormatException)
                 {
                     InfoMessage.Text = "В поле логина и пароля можно ввести только число";
                     LoginTextBox.Clear();
@@ -47,10 +47,10 @@ namespace School
                 #region check login and password
                 using (SchoolEntities school1Entities = new SchoolEntities())
                 {
-                    var query = school1Entities.Employee.Where(employee => employee.IdJobTitle == 2);
-                    foreach(var entity in query)
+                    
+                    foreach(var entity in school1Entities.Employee.Where(employee => employee.IdJobTitle == 2))
                     {
-                        if(Convert.ToInt32(LoginTextBox.Text) == entity.Login && Convert.ToInt32(PasswordBox.Password) == entity.Password)
+                        if(Convert.ToInt32(LoginTextBox.Text) == entity.Login && Convert.ToInt32(PasswordBox.Password) == entity.Password && entity.Activ == true)
                         {
                             IdUSer.Id = entity.id;
                             new Teacher().Show();
@@ -58,10 +58,10 @@ namespace School
                             return;
                         }
                     }
-                    query = school1Entities.Employee.Where(employee => employee.IdJobTitle != 2);
-                    foreach (var entity in query)
+
+                    foreach (var entity in school1Entities.Employee.Where(employee => employee.IdJobTitle != 2))
                     {
-                        if (Convert.ToInt32(LoginTextBox.Text) == entity.Login && Convert.ToInt32(PasswordBox.Password) == entity.Password)
+                        if (Convert.ToInt32(LoginTextBox.Text) == entity.Login && Convert.ToInt32(PasswordBox.Password) == entity.Password && entity.Activ == true)
                         {
                             IdUSer.Id = entity.id;
                             new Administrator().Show();
@@ -69,10 +69,10 @@ namespace School
                             return;
                         }
                     }
-                    var queryStudent = school1Entities.Student;
-                    foreach (var entity in queryStudent)
+
+                    foreach (var entity in school1Entities.Student)
                     {
-                        if (Convert.ToInt32(LoginTextBox.Text) == entity.Login && PasswordBox.Password == entity.Password)
+                        if (Convert.ToInt32(LoginTextBox.Text) == entity.Login && PasswordBox.Password == entity.Password && entity.Activ == true)
                         {
                             IdUSer.Id = entity.id;
                             new StudentWindow().Show();
@@ -81,15 +81,11 @@ namespace School
                         }
                     }
                 }
-                    InfoMessage.Text = "Логин или пароль неверный";
 
+                InfoMessage.Text = "Логин или пароль неверный";
                 #endregion
             }
-            else
-            {
-                InfoMessage.Text = "Не введены значения";
-            }
-
+            else InfoMessage.Text = "Не введены значения";
         }
 
         private void Window_Closed(object sender, EventArgs e) => Application.Current.Shutdown();

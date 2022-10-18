@@ -21,6 +21,7 @@ namespace School
     /// </summary>
     public partial class StudentWindow : Window
     {
+
         public StudentWindow()
         {
             InitializeComponent();
@@ -35,11 +36,11 @@ namespace School
                                  where student.IdClass == classStudent.id
                                  select classStudent;
 
-                var queryLesson = from less in bd.Lesson
+                var queryLesson = (from less in bd.Lesson
                                   from visitLeson in less.VisitLeson
                                   from student in query
                                   where visitLeson.IdStudent == student.id
-                                  select less;
+                                  select less).Distinct();
 
                 var queryLessonEmployee = (from employee in bd.Employee
                                           from lessonEmployee in employee.LessonEmployee
@@ -49,25 +50,45 @@ namespace School
                                           select employee).Distinct();
 
                 foreach (var entity in query)
-                {
                     NameStudent.Text = entity.Name + " " + entity.Surname;
-                }
+                
                 foreach (var entity in queryClass)
-                {
                     ClassStudent.Text += entity.Name + "\n";
-                }
+                
                 foreach(var entity in queryLessonEmployee)
-                {
                     ClassStudent.Text += entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n";
-                }
+                
                 foreach (var entity in queryLesson)
-                {
                     ListLesson.Items.Add(entity.Name);
-                }
             }
         }
 
         private void Window_Closed(object sender, EventArgs e) => new MainWindow().Show();
 
+        private void ListLesson_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            using (SchoolEntities bd = new SchoolEntities())
+            {
+                string lessons = "";
+
+                foreach (var item in e.AddedItems)
+                {
+                    lessons += item.ToString();
+                }
+
+               
+
+                var query = from lesson in bd.Lesson
+                            from visitLesson in lesson.VisitLeson
+                            where lesson.Name == lessons
+                            select visitLesson;
+
+                foreach (var entity in query)
+                {
+                    ListVisit.Items.Add(entity.DateVisitLessons);
+                }
+            }
+
+        }
     }
 }

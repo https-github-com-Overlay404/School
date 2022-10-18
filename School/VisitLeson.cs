@@ -17,6 +17,7 @@ namespace School
         public int id { get; set; }
         public int IdLesson { get; set; }
         public int IdStudent { get; set; }
+        public Nullable<System.DateTime> DateVisitLessons { get; set; }
         public bool Presence { get; set; }
     
         public virtual Lesson Lesson { get; set; }

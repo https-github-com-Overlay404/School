@@ -8,7 +8,8 @@
         Title="StudentWindow" Height="450" Width="800" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="352*"/>
+            <RowDefinition Height="208*"/>
+            <RowDefinition Height="144*"/>
             <RowDefinition Height="37*"/>
             <RowDefinition Height="30*"/>
         </Grid.RowDefinitions>
@@ -19,8 +20,11 @@
         </Grid.ColumnDefinitions>
         <Image Source="Picture\PidorPic.png" VerticalAlignment="Top"/>
         <TextBlock x:Name="NameStudent" Grid.Column="1" Height="30" Text="" VerticalAlignment="Top"/>
-        <TextBlock x:Name="ClassStudent" Grid.Column="1" Height="30" Text="" VerticalAlignment="Top" Margin="0 30 0 0"/>
-        <ListBox x:Name="ListLesson"  Grid.Column="3" Margin="10,10,10,10" Grid.Row="0"></ListBox>
-        <Button Grid.Column="3" Grid.Row="1" Margin="60,5,60,5" Content="Обновить"></Button>
+        <TextBlock x:Name="ClassStudent" Grid.Column="1" Height="80" Text="" VerticalAlignment="Top" Margin="0 30 0 0"/>
+        <ListBox x:Name="ListLesson"  Grid.Column="2" Margin="10,10,10,10" Grid.Row="0" Grid.RowSpan="2" SelectionChanged="ListLesson_SelectionChanged"></ListBox>
+
+        <ListBox x:Name="ListVisit" Grid.ColumnSpan="2" Margin="30 0 20 0" Grid.Row="1" Grid.RowSpan="2"></ListBox>
+
+        <Button Grid.Column="2" Grid.Row="2" Margin="60,5,60,5" Content="Обновить"></Button>
     </Grid>
 </Window>

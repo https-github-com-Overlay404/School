@@ -25,11 +25,21 @@ namespace School
 
             using (SchoolEntities bd = new SchoolEntities())
             {
-                var query = bd.Employee.Where(employee => employee.id == IdUSer.Id);
+                foreach (var entity in bd.Employee.Where(employee => employee.id == IdUSer.Id))
+                    NameTeacher.Text = entity.id + " " + entity.Name
+                                       + " " + entity.Surname + "\n"
+                                       + entity.Login + " " + entity.Password;
+
+                var query = from visitLesson in bd.VisitLeson
+                            from lesson in bd.Lesson
+                            where lesson.Name == "qwe"
+                            select visitLesson;
+
                 foreach (var entity in query)
                 {
-                    text.Text = entity.id + " " + entity.Name + " " + entity.Surname + "\n" + entity.Login + " " + entity.Password;
+                    ListLesson.Items.Add(entity.DateVisitLessons);
                 }
+
             }
         }
 

@@ -5,14 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:School"
         mc:Ignorable="d"
-        Title="Teacher" Height="450" Width="800" Closed="Window_Closed">
+        Height="450" Width="800" Closed="Window_Closed">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="352*"/>
+            <RowDefinition Height="37*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
+            <ColumnDefinition Width="103*"/>
+            <ColumnDefinition Width="344*"/>
+            <ColumnDefinition Width="200*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock x:Name="text" Grid.Column="1" Height="100" Text="psapd"/>
+        <Image Source="Picture\TeacherPic.png" VerticalAlignment="Top"/>
+        <TextBlock x:Name="NameTeacher" Grid.Column="1" Height="30" Text="" VerticalAlignment="Top"/>
+        <TextBlock x:Name="ClassTeacher" Grid.Column="1" Height="80" Text="" VerticalAlignment="Top" Margin="0 30 0 0"/>
+        <TextBlock Text="Журнал посещения за " Grid.Column="2" Height="20" VerticalAlignment="Top"/>
+        <ListBox x:Name="ListLesson"  Grid.Column="2" Margin="0,20,10,10" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Items}">
+            <ListBox.Resources>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="OverridesDefaultStyle" Value="true" />
+                        <Setter Property="SnapsToDevicePixels" Value="true" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <CheckBox Margin="5,2"
+                                          IsChecked="{TemplateBinding IsSelected}">
+                                        <ContentPresenter />
+                                    </CheckBox>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+        <Button  Grid.Column="3" Grid.Row="1" Margin="50 10 50 0" Content="Отметить учеников"></Button>
+
     </Grid>
 </Window>
