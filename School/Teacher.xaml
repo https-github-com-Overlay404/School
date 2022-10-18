@@ -22,7 +22,8 @@
         <TextBlock x:Name="NameTeacher" Grid.Column="1" Height="30" Text="" VerticalAlignment="Top"/>
         <TextBlock x:Name="ClassTeacher" Grid.Column="1" Height="80" Text="" VerticalAlignment="Top" Margin="0 30 0 0"/>
         <TextBlock x:Name="titleList" Text="Журнал посещения за " Grid.Column="2" Height="20" VerticalAlignment="Top"/>
-        <ListBox x:Name="ListLesson"  Grid.Column="2" Margin="0,20,10,10" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Items}" SelectionMode="Multiple">
+        <ComboBox x:Name="selectLessen" Grid.Column="2" VerticalAlignment="Top" Margin=" 0 28 10 0" SelectionChanged="selectLessen_SelectionChanged"/>
+        <ListBox x:Name="ListLesson"  Grid.Column="2" Margin="0,50,10,10" Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Items}" SelectionMode="Multiple">
             <ListBox.ItemTemplate>
                     <DataTemplate>
                         <DockPanel>

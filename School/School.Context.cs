@@ -33,6 +33,7 @@ namespace School
         public virtual DbSet<LessonEmployee> LessonEmployee { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<StudentLesson> StudentLesson { get; set; }
         public virtual DbSet<VisitLeson> VisitLeson { get; set; }
     }
 }

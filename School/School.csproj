@@ -112,6 +112,9 @@
     <Compile Include="Student.cs">
       <DependentUpon>School.tt</DependentUpon>
     </Compile>
+    <Compile Include="StudentLesson.cs">
+      <DependentUpon>School.tt</DependentUpon>
+    </Compile>
     <Compile Include="StudentWindow.xaml.cs">
       <DependentUpon>StudentWindow.xaml</DependentUpon>
     </Compile>

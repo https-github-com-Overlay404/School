@@ -17,6 +17,7 @@ namespace School
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Student()
         {
+            this.StudentLesson = new HashSet<StudentLesson>();
             this.VisitLeson = new HashSet<VisitLeson>();
         }
     
@@ -30,6 +31,8 @@ namespace School
         public Nullable<bool> Activ { get; set; }
     
         public virtual Class Class { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentLesson> StudentLesson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitLeson> VisitLeson { get; set; }
     }

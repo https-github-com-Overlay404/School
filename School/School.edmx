@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище School1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Хранилище SchoolModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cabinet">
           <Key>
             <PropertyRef Name="id" />
@@ -79,6 +79,14 @@
           <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Activ" Type="bit" />
         </EntityType>
+        <EntityType Name="StudentLesson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLesson" Type="int" Nullable="false" />
+          <Property Name="IdStudent" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="VisitLeson">
           <Key>
             <PropertyRef Name="id" />
@@ -86,8 +94,8 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdLesson" Type="int" Nullable="false" />
           <Property Name="IdStudent" Type="int" Nullable="false" />
-          <Property Name="DateVisitLessons" Type="date" />
           <Property Name="Presence" Type="bit" Nullable="false" />
+          <Property Name="DateVisitLessons" Type="date" Nullable="false" />
         </EntityType>
         <Association Name="FK_Employee_JobTitle">
           <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="1" />
@@ -161,6 +169,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentLesson_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="StudentLesson" Type="Self.StudentLesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StudentLesson">
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StudentLesson_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentLesson" Type="Self.StudentLesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StudentLesson">
+              <PropertyRef Name="IdStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VisitLeson_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
@@ -185,7 +217,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище School1ModelContainer">
+        <EntityContainer Name="Хранилище SchoolModelContainer">
           <EntitySet Name="Cabinet" EntityType="Self.Cabinet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -194,6 +226,7 @@
           <EntitySet Name="LessonEmployee" EntityType="Self.LessonEmployee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StudentLesson" EntityType="Self.StudentLesson" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VisitLeson" EntityType="Self.VisitLeson" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Employee_JobTitle" Association="Self.FK_Employee_JobTitle">
             <End Role="JobTitle" EntitySet="JobTitle" />
@@ -219,6 +252,14 @@
             <End Role="Class" EntitySet="Class" />
             <End Role="Student" EntitySet="Student" />
           </AssociationSet>
+          <AssociationSet Name="FK_StudentLesson_Lesson" Association="Self.FK_StudentLesson_Lesson">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="StudentLesson" EntitySet="StudentLesson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentLesson_Student" Association="Self.FK_StudentLesson_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentLesson" EntitySet="StudentLesson" />
+          </AssociationSet>
           <AssociationSet Name="FK_VisitLeson_Lesson" Association="Self.FK_VisitLeson_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="VisitLeson" EntitySet="VisitLeson" />
@@ -232,7 +273,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="School1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="SchoolModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Cabinet">
           <Key>
             <PropertyRef Name="id" />
@@ -281,6 +322,7 @@
           <Property Name="MaximumNumberOfStudents" Type="Int32" Nullable="false" />
           <Property Name="Active" Type="Boolean" />
           <NavigationProperty Name="LessonEmployee" Relationship="Self.FK_LessonEmployee_Lesson" FromRole="Lesson" ToRole="LessonEmployee" />
+          <NavigationProperty Name="StudentLesson" Relationship="Self.FK_StudentLesson_Lesson" FromRole="Lesson" ToRole="StudentLesson" />
           <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Lesson" FromRole="Lesson" ToRole="VisitLeson" />
         </EntityType>
         <EntityType Name="LessonEmployee">
@@ -319,7 +361,18 @@
           <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Activ" Type="Boolean" />
           <NavigationProperty Name="Class" Relationship="Self.FK_Student_Class" FromRole="Student" ToRole="Class" />
+          <NavigationProperty Name="StudentLesson" Relationship="Self.FK_StudentLesson_Student" FromRole="Student" ToRole="StudentLesson" />
           <NavigationProperty Name="VisitLeson" Relationship="Self.FK_VisitLeson_Student" FromRole="Student" ToRole="VisitLeson" />
+        </EntityType>
+        <EntityType Name="StudentLesson">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLesson" Type="Int32" Nullable="false" />
+          <Property Name="IdStudent" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Lesson" Relationship="Self.FK_StudentLesson_Lesson" FromRole="StudentLesson" ToRole="Lesson" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_StudentLesson_Student" FromRole="StudentLesson" ToRole="Student" />
         </EntityType>
         <EntityType Name="VisitLeson">
           <Key>
@@ -328,8 +381,8 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IdLesson" Type="Int32" Nullable="false" />
           <Property Name="IdStudent" Type="Int32" Nullable="false" />
-          <Property Name="DateVisitLessons" Type="DateTime" Precision="0" />
           <Property Name="Presence" Type="Boolean" Nullable="false" />
+          <Property Name="DateVisitLessons" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Lesson" Relationship="Self.FK_VisitLeson_Lesson" FromRole="VisitLeson" ToRole="Lesson" />
           <NavigationProperty Name="Student" Relationship="Self.FK_VisitLeson_Student" FromRole="VisitLeson" ToRole="Student" />
         </EntityType>
@@ -393,6 +446,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentLesson_Lesson">
+          <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+          <End Role="StudentLesson" Type="Self.StudentLesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Lesson">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StudentLesson">
+              <PropertyRef Name="IdLesson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VisitLeson_Lesson">
           <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
           <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
@@ -417,6 +482,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentLesson_Student">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentLesson" Type="Self.StudentLesson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="StudentLesson">
+              <PropertyRef Name="IdStudent" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_VisitLeson_Student">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
@@ -438,6 +515,7 @@
           <EntitySet Name="LessonEmployee" EntityType="Self.LessonEmployee" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" />
           <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="StudentLesson" EntityType="Self.StudentLesson" />
           <EntitySet Name="VisitLeson" EntityType="Self.VisitLeson" />
           <AssociationSet Name="FK_Schedule_Cabinet" Association="Self.FK_Schedule_Cabinet">
             <End Role="Cabinet" EntitySet="Cabinet" />
@@ -459,6 +537,10 @@
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="LessonEmployee" EntitySet="LessonEmployee" />
           </AssociationSet>
+          <AssociationSet Name="FK_StudentLesson_Lesson" Association="Self.FK_StudentLesson_Lesson">
+            <End Role="Lesson" EntitySet="Lesson" />
+            <End Role="StudentLesson" EntitySet="StudentLesson" />
+          </AssociationSet>
           <AssociationSet Name="FK_VisitLeson_Lesson" Association="Self.FK_VisitLeson_Lesson">
             <End Role="Lesson" EntitySet="Lesson" />
             <End Role="VisitLeson" EntitySet="VisitLeson" />
@@ -466,6 +548,10 @@
           <AssociationSet Name="FK_Schedule_LessonEmployee" Association="Self.FK_Schedule_LessonEmployee">
             <End Role="LessonEmployee" EntitySet="LessonEmployee" />
             <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentLesson_Student" Association="Self.FK_StudentLesson_Student">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentLesson" EntitySet="StudentLesson" />
           </AssociationSet>
           <AssociationSet Name="FK_VisitLeson_Student" Association="Self.FK_VisitLeson_Student">
             <End Role="Student" EntitySet="Student" />
@@ -477,9 +563,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище School1ModelContainer" CdmEntityContainer="SchoolEntities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище SchoolModelContainer" CdmEntityContainer="SchoolEntities">
           <EntitySetMapping Name="Cabinet">
-            <EntityTypeMapping TypeName="School1Model.Cabinet">
+            <EntityTypeMapping TypeName="SchoolModel.Cabinet">
               <MappingFragment StoreEntitySet="Cabinet">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Number" ColumnName="Number" />
@@ -487,7 +573,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Class">
-            <EntityTypeMapping TypeName="School1Model.Class">
+            <EntityTypeMapping TypeName="SchoolModel.Class">
               <MappingFragment StoreEntitySet="Class">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -495,7 +581,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
-            <EntityTypeMapping TypeName="School1Model.Employee">
+            <EntityTypeMapping TypeName="SchoolModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="IdJobTitle" ColumnName="IdJobTitle" />
@@ -509,7 +595,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="JobTitle">
-            <EntityTypeMapping TypeName="School1Model.JobTitle">
+            <EntityTypeMapping TypeName="SchoolModel.JobTitle">
               <MappingFragment StoreEntitySet="JobTitle">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -517,7 +603,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Lesson">
-            <EntityTypeMapping TypeName="School1Model.Lesson">
+            <EntityTypeMapping TypeName="SchoolModel.Lesson">
               <MappingFragment StoreEntitySet="Lesson">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -527,7 +613,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LessonEmployee">
-            <EntityTypeMapping TypeName="School1Model.LessonEmployee">
+            <EntityTypeMapping TypeName="SchoolModel.LessonEmployee">
               <MappingFragment StoreEntitySet="LessonEmployee">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
@@ -536,7 +622,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Schedule">
-            <EntityTypeMapping TypeName="School1Model.Schedule">
+            <EntityTypeMapping TypeName="SchoolModel.Schedule">
               <MappingFragment StoreEntitySet="Schedule">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="NumberCabinet" ColumnName="NumberCabinet" />
@@ -547,7 +633,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Student">
-            <EntityTypeMapping TypeName="School1Model.Student">
+            <EntityTypeMapping TypeName="SchoolModel.Student">
               <MappingFragment StoreEntitySet="Student">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="IdClass" ColumnName="IdClass" />
@@ -560,14 +646,23 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="StudentLesson">
+            <EntityTypeMapping TypeName="SchoolModel.StudentLesson">
+              <MappingFragment StoreEntitySet="StudentLesson">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
+                <ScalarProperty Name="IdStudent" ColumnName="IdStudent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="VisitLeson">
-            <EntityTypeMapping TypeName="School1Model.VisitLeson">
+            <EntityTypeMapping TypeName="SchoolModel.VisitLeson">
               <MappingFragment StoreEntitySet="VisitLeson">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="IdLesson" ColumnName="IdLesson" />
                 <ScalarProperty Name="IdStudent" ColumnName="IdStudent" />
-                <ScalarProperty Name="DateVisitLessons" ColumnName="DateVisitLessons" />
                 <ScalarProperty Name="Presence" ColumnName="Presence" />
+                <ScalarProperty Name="DateVisitLessons" ColumnName="DateVisitLessons" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

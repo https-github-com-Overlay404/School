@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="Хранилище School1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="Хранилище SchoolModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Cabinet">
     <Key>
       <PropertyRef Name="id" />
@@ -74,6 +74,14 @@
     <Property Name="Password" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="Activ" Type="bit" />
   </EntityType>
+  <EntityType Name="StudentLesson">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdLesson" Type="int" Nullable="false" />
+    <Property Name="IdStudent" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="VisitLeson">
     <Key>
       <PropertyRef Name="id" />
@@ -81,8 +89,8 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="IdLesson" Type="int" Nullable="false" />
     <Property Name="IdStudent" Type="int" Nullable="false" />
-    <Property Name="DateVisitLessons" Type="date" />
     <Property Name="Presence" Type="bit" Nullable="false" />
+    <Property Name="DateVisitLessons" Type="date" Nullable="false" />
   </EntityType>
   <Association Name="FK_Employee_JobTitle">
     <End Role="JobTitle" Type="Self.JobTitle" Multiplicity="1" />
@@ -156,6 +164,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_StudentLesson_Lesson">
+    <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
+    <End Role="StudentLesson" Type="Self.StudentLesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lesson">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="StudentLesson">
+        <PropertyRef Name="IdLesson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StudentLesson_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="StudentLesson" Type="Self.StudentLesson" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="StudentLesson">
+        <PropertyRef Name="IdStudent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_VisitLeson_Lesson">
     <End Role="Lesson" Type="Self.Lesson" Multiplicity="1" />
     <End Role="VisitLeson" Type="Self.VisitLeson" Multiplicity="*" />
@@ -180,7 +212,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="Хранилище School1ModelContainer">
+  <EntityContainer Name="Хранилище SchoolModelContainer">
     <EntitySet Name="Cabinet" EntityType="Self.Cabinet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Class" EntityType="Self.Class" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -189,6 +221,7 @@
     <EntitySet Name="LessonEmployee" EntityType="Self.LessonEmployee" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StudentLesson" EntityType="Self.StudentLesson" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VisitLeson" EntityType="Self.VisitLeson" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Employee_JobTitle" Association="Self.FK_Employee_JobTitle">
       <End Role="JobTitle" EntitySet="JobTitle" />
@@ -213,6 +246,14 @@
     <AssociationSet Name="FK_Student_Class" Association="Self.FK_Student_Class">
       <End Role="Class" EntitySet="Class" />
       <End Role="Student" EntitySet="Student" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentLesson_Lesson" Association="Self.FK_StudentLesson_Lesson">
+      <End Role="Lesson" EntitySet="Lesson" />
+      <End Role="StudentLesson" EntitySet="StudentLesson" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StudentLesson_Student" Association="Self.FK_StudentLesson_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="StudentLesson" EntitySet="StudentLesson" />
     </AssociationSet>
     <AssociationSet Name="FK_VisitLeson_Lesson" Association="Self.FK_VisitLeson_Lesson">
       <End Role="Lesson" EntitySet="Lesson" />

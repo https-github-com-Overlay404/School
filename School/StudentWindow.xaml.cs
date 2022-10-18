@@ -85,6 +85,7 @@ namespace School
 
                 foreach (var entity in query)
                 {
+                    ListVisit.Items.Clear();
                     ListVisit.Items.Add(entity.DateVisitLessons);
                 }
             }

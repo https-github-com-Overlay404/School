@@ -18,6 +18,7 @@ namespace School
         public Lesson()
         {
             this.LessonEmployee = new HashSet<LessonEmployee>();
+            this.StudentLesson = new HashSet<StudentLesson>();
             this.VisitLeson = new HashSet<VisitLeson>();
         }
     
@@ -28,6 +29,8 @@ namespace School
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LessonEmployee> LessonEmployee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StudentLesson> StudentLesson { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VisitLeson> VisitLeson { get; set; }
     }

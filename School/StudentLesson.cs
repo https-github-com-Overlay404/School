@@ -12,13 +12,11 @@ namespace School
     using System;
     using System.Collections.Generic;
     
-    public partial class VisitLeson
+    public partial class StudentLesson
     {
         public int id { get; set; }
         public int IdLesson { get; set; }
         public int IdStudent { get; set; }
-        public bool Presence { get; set; }
-        public System.DateTime DateVisitLessons { get; set; }
     
         public virtual Lesson Lesson { get; set; }
         public virtual Student Student { get; set; }
