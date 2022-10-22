@@ -44,7 +44,7 @@ namespace School
 
                 var queryLessonEmployee = (from employee in bd.Employee
                                           from lessonEmployee in employee.LessonEmployee
-                                          from lessonStudent in bd.VisitLeson
+                                          from lessonStudent in bd.StudentLesson                                  
                                           from studen in bd.Student
                                           where studen.id == studen.id
                                           select employee).Distinct();
@@ -86,6 +86,7 @@ namespace School
                 foreach (var entity in query)
                 {
                     ListVisit.Items.Clear();
+                    InitializeComponent();
                     ListVisit.Items.Add(entity.DateVisitLessons);
                 }
             }

@@ -22,16 +22,13 @@ namespace School
 
     public partial class Teacher : Window
     {
-        public ObservableCollection<string> Items1 { get; }
-        public SchoolEntities bd = new SchoolEntities();
+        public SchoolEntities db = new SchoolEntities();
         public static List<int> idStudent = new List<int>();
         public Teacher()
         {
-            Items1 = new ObservableCollection<string>();
-
             InitializeComponent();
 
-            var queryListLesson = (from lesson in bd.Lesson
+            var queryListLesson = (from lesson in db.Lesson
                                    from lessonEmployee in lesson.LessonEmployee
                                    where lessonEmployee.IdEmployees == IdUSer.Id
                                    select lesson).Distinct();
@@ -50,49 +47,42 @@ namespace School
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            int maxId = 0;
-
-            foreach (var entity in bd.VisitLeson.Where(lesson => lesson.id > lesson.id - 1))
-                if (entity.id > maxId) maxId = entity.id;
+           
 
             foreach (var entity in idStudent)
             {
-                maxId++;
+                var query = (from lesson in db.Lesson
+                             where lesson.Name == selectLessen.Text
+                             select lesson).First();
                 VisitLeson visitLesson = new VisitLeson
                 {
-                    id = maxId,
-                    IdLesson = 2,
+                    IdLesson = query.id,
                     IdStudent = entity,
                     DateVisitLessons = DateTime.Today,
                     Presence = true
                 };
-                bd.VisitLeson.Add(visitLesson);
-                bd.SaveChanges();
+                db.VisitLeson.Add(visitLesson);
+                db.SaveChanges();
             }
-
-
-
         }
 
         private void selectLessen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var queryStudent = (from lesson in bd.Lesson
-                                from studentLesson in lesson.StudentLesson
-                                from employeeLesson in lesson.LessonEmployee
-                                from student in bd.Student
-                                where employeeLesson.id == IdUSer.Id
-                                select student).Distinct();
-
-
-            foreach (var entity in queryStudent)
-            {
-                MessageBox.Show(entity.Name);
-                Items1.Add(entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n");
-                idStudent.Add(entity.id);
-            }
-
             InitializeComponent();
-            DataContext = this;
+
+            var queryStudent = (
+                                from student in db.Student
+                                from lessonStudent in student.StudentLesson
+                                where lessonStudent.IdLesson == 
+                                    (from lesson in db.Lesson
+                                     where lesson.Name == selectLessen.Text
+                                     select lesson).FirstOrDefault().id
+                                select new
+                                {
+                                    fullName = " " + student.Name + " " + student.Surname + " " + student.Lastname
+                                }).Distinct();
+
+            StudentLesson.ItemsSource = queryStudent.ToList(); 
         }
     }
 }
