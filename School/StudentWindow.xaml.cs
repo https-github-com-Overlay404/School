@@ -27,22 +27,20 @@ namespace School
         public StudentWindow()
         {
             InitializeComponent();
-
+            //Вывод ФИО ученика
             foreach (var entity in DBConnect.db.Student.Where(student => student.id == IdUSer.Id))
                 NameStudent.Text = entity.Name + " " + entity.Surname + " " + entity.Lastname;
-
+            //Вывод класса ученика
             foreach (var entity in DBConnect.db.Student.Where(s => s.id == IdUSer.Id).Select(c => c.Class))
                 ClassStudent.Text += entity.Name + "\nПреподают:";
-
+            //Вывод преподователей ученика
             foreach (var entity in DBConnect.db.StudentLesson.Where(c => c.IdStudent == IdUSer.Id).SelectMany(c => c.Lesson.LessonEmployee.Select(e => e.Employee)).Distinct())
                 ListEmployee.Items.Add(entity.Name + " " + entity.Surname + " " + entity.Lastname);
-
+            //Вывод предметов ученика
             foreach (var entity in DBConnect.db.Student.Where(s => s.id == IdUSer.Id).SelectMany(c => c.StudentLesson.Select(l => l.Lesson)))
                 ListLesson.Items.Add(entity.Name);
         }
-
-        private void Window_Closed(object sender, EventArgs e) => new MainWindow().Show();
-
+        //Отображение посещения ученика
         private void ListLesson_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListVisit.Items.Clear();
@@ -54,12 +52,12 @@ namespace School
                 lessons += item.ToString();
 
             foreach (var entity in (DBConnect.db.Student.SelectMany(c => c.VisitLeson).Where(c => c.Lesson.Name == lessons && c.Student.id == IdUSer.Id)))
-                if(entity.Presence)
+                if (entity.Presence)
                     ListVisit.Items.Add("Посетил занятия " + entity.DateVisitLessons);
                 else
                     ListVisit.Items.Add("Пропустил занятия " + entity.DateVisitLessons);
         }
-
+        //Отображение информации об учителе
         private void ListEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string name = "";
@@ -76,5 +74,7 @@ namespace School
                 nameP += entity.Name + "\n";
             MessageBox.Show("Преподаватель " + fullname + "ведет предметы " + nameP);
         }
+        //Открытие окна авторизации
+        private void Window_Closed(object sender, EventArgs e) => new MainWindow().Show();
     }
 }

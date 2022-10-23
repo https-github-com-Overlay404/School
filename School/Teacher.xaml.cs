@@ -22,41 +22,27 @@ namespace School
 
     public partial class Teacher : Window
     {
-        
+
         public static List<int> idStudent = new List<int>();
         public Teacher()
         {
             InitializeComponent();
-
-            var queryListLesson = (from lesson in DBConnect.db.Lesson
-                                   from lessonEmployee in lesson.LessonEmployee
-                                   where lessonEmployee.IdEmployees == IdUSer.Id
-                                   select lesson).Distinct();
-            foreach (var entity in queryListLesson)
-            {
+            //Добавление предметов в ComboBox
+            foreach (var entity in DBConnect.db.Employee.Where(employee => employee.id == IdUSer.Id).SelectMany(l => l.LessonEmployee.Select(less => less.Lesson)).Distinct())
                 selectLessen.Items.Add(entity.Name.ToString());
-            }
 
             titleList.Text += DateTime.Today.ToString("d");
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            new MainWindow().Show();
-        }
 
+        //Загрузка данных в БД
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-           
-
             foreach (var entity in idStudent)
             {
-                var query = (from lesson in DBConnect.db.Lesson
-                             where lesson.Name == selectLessen.Text
-                             select lesson).First();
                 VisitLeson visitLesson = new VisitLeson
                 {
-                    IdLesson = query.id,
+                    IdLesson = DBConnect.db.Lesson.Where(l => l.Name == selectLessen.Text).First().id,
                     IdStudent = entity,
                     DateVisitLessons = DateTime.Today,
                     Presence = true
@@ -65,7 +51,7 @@ namespace School
                 DBConnect.db.SaveChanges();
             }
         }
-
+        //Отображение учеников в ListBox
         private void selectLessen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             InitializeComponent();
@@ -73,7 +59,7 @@ namespace School
             var queryStudent = (
                                 from student in DBConnect.db.Student
                                 from lessonStudent in student.StudentLesson
-                                where lessonStudent.IdLesson == 
+                                where lessonStudent.IdLesson ==
                                     (from lesson in DBConnect.db.Lesson
                                      where lesson.Name == selectLessen.Text
                                      select lesson).FirstOrDefault().id
@@ -82,7 +68,9 @@ namespace School
                                     fullName = " " + student.Name + " " + student.Surname + " " + student.Lastname
                                 }).Distinct();
 
-            StudentLesson.ItemsSource = queryStudent.ToList(); 
+            StudentLesson.ItemsSource = queryStudent.ToList();
         }
+        //Открытие окна авторизации
+        private void Window_Closed(object sender, EventArgs e) => new MainWindow().Show();
     }
 }
