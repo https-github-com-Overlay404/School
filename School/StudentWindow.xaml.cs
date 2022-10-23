@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
+using School;
 
 namespace School
 {
@@ -26,71 +27,62 @@ namespace School
         {
             InitializeComponent();
 
-            using (SchoolEntities bd = new SchoolEntities())
-            {
+            var query = DBConnect.db.Student.Where(student => student.id == IdUSer.Id);
 
-                var query = bd.Student.Where(student => student.id == IdUSer.Id);
+            var queryClass = from classStudent in DBConnect.db.Class
+                             from student in query
+                             where student.IdClass == classStudent.id
+                             select classStudent;
 
-                var queryClass = from classStudent in bd.Class
-                                 from student in query
-                                 where student.IdClass == classStudent.id
-                                 select classStudent;
+            var queryLesson = (from less in DBConnect.db.Lesson
+                               from visitLeson in less.VisitLeson
+                               from student in query
+                               where visitLeson.IdStudent == student.id
+                               select less).Distinct();
 
-                var queryLesson = (from less in bd.Lesson
-                                  from visitLeson in less.VisitLeson
-                                  from student in query
-                                  where visitLeson.IdStudent == student.id
-                                  select less).Distinct();
+            var queryLessonEmployee = (from employee in DBConnect.db.Employee
+                                       from lessonEmployee in employee.LessonEmployee
+                                       from lessonStudent in DBConnect.db.StudentLesson
+                                       from studen in DBConnect.db.Student
+                                       where studen.id == studen.id
+                                       select employee).Distinct();
 
-                var queryLessonEmployee = (from employee in bd.Employee
-                                          from lessonEmployee in employee.LessonEmployee
-                                          from lessonStudent in bd.StudentLesson                                  
-                                          from studen in bd.Student
-                                          where studen.id == studen.id
-                                          select employee).Distinct();
+            foreach (var entity in query)
+                NameStudent.Text = entity.Name + " " + entity.Surname;
 
-                foreach (var entity in query)
-                    NameStudent.Text = entity.Name + " " + entity.Surname;
-                
-                foreach (var entity in queryClass)
-                    ClassStudent.Text += entity.Name + "\n";
-                
-                foreach(var entity in queryLessonEmployee)
-                    ClassStudent.Text += entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n";
-                
-                foreach (var entity in queryLesson)
-                    ListLesson.Items.Add(entity.Name);
-            }
+            foreach (var entity in queryClass)
+                ClassStudent.Text += entity.Name + "\n";
+
+            foreach (var entity in queryLessonEmployee)
+                ClassStudent.Text += entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n";
+
+            foreach (var entity in queryLesson)
+                ListLesson.Items.Add(entity.Name);
         }
 
         private void Window_Closed(object sender, EventArgs e) => new MainWindow().Show();
 
         private void ListLesson_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            using (SchoolEntities bd = new SchoolEntities())
+            ListVisit.Items.Clear();
+            InitializeComponent();
+
+            string lessons = "";
+
+            foreach (var item in e.AddedItems)
             {
-                string lessons = "";
-
-                foreach (var item in e.AddedItems)
-                {
-                    lessons += item.ToString();
-                }
-
-               
-
-                var query = from lesson in bd.Lesson
-                            from visitLesson in lesson.VisitLeson
-                            where lesson.Name == lessons
-                            select visitLesson;
-
-                foreach (var entity in query)
-                {
-                    ListVisit.Items.Clear();
-                    InitializeComponent();
-                    ListVisit.Items.Add(entity.DateVisitLessons);
-                }
+                lessons += item.ToString();
             }
 
+            var query = from lesson in DBConnect.db.Lesson
+                        from visitLesson in lesson.VisitLeson
+                        where lesson.Name == lessons
+                        select visitLesson;
+
+            foreach (var entity in query)
+            {
+                ListVisit.Items.Add(entity.DateVisitLessons);
+            }
         }
     }
 }

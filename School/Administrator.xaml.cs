@@ -24,14 +24,11 @@ namespace School
         {
             InitializeComponent();
 
-            using (SchoolEntities bd = new SchoolEntities())
-            {
-                var query = bd.Employee.Where(employee => employee.id == IdUSer.Id);
+                var query = DBConnect.db.Employee.Where(employee => employee.id == IdUSer.Id);
                 foreach (var entity in query)
                 {
                     text.Text = entity.id + " " + entity.Name + " " + entity.Surname + "\n" + entity.Login + " " + entity.Password;
                 }
-            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

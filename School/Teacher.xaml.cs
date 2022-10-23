@@ -22,13 +22,13 @@ namespace School
 
     public partial class Teacher : Window
     {
-        public SchoolEntities db = new SchoolEntities();
+        
         public static List<int> idStudent = new List<int>();
         public Teacher()
         {
             InitializeComponent();
 
-            var queryListLesson = (from lesson in db.Lesson
+            var queryListLesson = (from lesson in DBConnect.db.Lesson
                                    from lessonEmployee in lesson.LessonEmployee
                                    where lessonEmployee.IdEmployees == IdUSer.Id
                                    select lesson).Distinct();
@@ -51,7 +51,7 @@ namespace School
 
             foreach (var entity in idStudent)
             {
-                var query = (from lesson in db.Lesson
+                var query = (from lesson in DBConnect.db.Lesson
                              where lesson.Name == selectLessen.Text
                              select lesson).First();
                 VisitLeson visitLesson = new VisitLeson
@@ -61,8 +61,8 @@ namespace School
                     DateVisitLessons = DateTime.Today,
                     Presence = true
                 };
-                db.VisitLeson.Add(visitLesson);
-                db.SaveChanges();
+                DBConnect.db.VisitLeson.Add(visitLesson);
+                DBConnect.db.SaveChanges();
             }
         }
 
@@ -71,10 +71,10 @@ namespace School
             InitializeComponent();
 
             var queryStudent = (
-                                from student in db.Student
+                                from student in DBConnect.db.Student
                                 from lessonStudent in student.StudentLesson
                                 where lessonStudent.IdLesson == 
-                                    (from lesson in db.Lesson
+                                    (from lesson in DBConnect.db.Lesson
                                      where lesson.Name == selectLessen.Text
                                      select lesson).FirstOrDefault().id
                                 select new

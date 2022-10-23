@@ -79,6 +79,7 @@
     <Compile Include="Class.cs">
       <DependentUpon>School.tt</DependentUpon>
     </Compile>
+    <Compile Include="DBConnect.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>School.tt</DependentUpon>
     </Compile>
