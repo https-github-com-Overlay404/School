@@ -32,10 +32,10 @@ namespace School
                 NameStudent.Text = entity.Name + " " + entity.Surname + " " + entity.Lastname;
 
             foreach (var entity in DBConnect.db.Student.Where(s => s.id == IdUSer.Id).Select(c => c.Class))
-                ClassStudent.Text += entity.Name + "\n";
+                ClassStudent.Text += entity.Name + "\nПреподают:";
 
             foreach (var entity in DBConnect.db.StudentLesson.Where(c => c.IdStudent == IdUSer.Id).SelectMany(c => c.Lesson.LessonEmployee.Select(e => e.Employee)).Distinct())
-                ClassStudent.Text += entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n";
+                ListEmployee.Items.Add(entity.Name + " " + entity.Surname + " " + entity.Lastname);
 
             foreach (var entity in DBConnect.db.Student.Where(s => s.id == IdUSer.Id).SelectMany(c => c.StudentLesson.Select(l => l.Lesson)))
                 ListLesson.Items.Add(entity.Name);
@@ -54,7 +54,27 @@ namespace School
                 lessons += item.ToString();
 
             foreach (var entity in (DBConnect.db.Student.SelectMany(c => c.VisitLeson).Where(c => c.Lesson.Name == lessons && c.Student.id == IdUSer.Id)))
-                ListVisit.Items.Add(entity.DateVisitLessons);
+                if(entity.Presence)
+                    ListVisit.Items.Add("Посетил занятия " + entity.DateVisitLessons);
+                else
+                    ListVisit.Items.Add("Пропустил занятия " + entity.DateVisitLessons);
+        }
+
+        private void ListEmployee_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string name = "";
+            string lastname = "";
+            string fullname = "";
+            foreach (var item in e.AddedItems)
+            {
+                name = item.ToString().Split(' ').First();
+                lastname = item.ToString().Split(' ').Last();
+                fullname = item.ToString();
+            }
+            var nameP = "\n";
+            foreach (var entity in DBConnect.db.Employee.Where(employee => employee.Name == name && employee.Lastname == lastname).SelectMany(l => l.LessonEmployee.Select(less => less.Lesson)))
+                nameP += entity.Name + "\n";
+            MessageBox.Show("Преподаватель " + fullname + "ведет предметы " + nameP);
         }
     }
 }
