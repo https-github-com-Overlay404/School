@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using static System.Net.Mime.MediaTypeNames;
 using School;
+using System.Data.Entity;
 
 namespace School
 {
@@ -27,36 +28,16 @@ namespace School
         {
             InitializeComponent();
 
-            var query = DBConnect.db.Student.Where(student => student.id == IdUSer.Id);
+            foreach (var entity in DBConnect.db.Student.Where(student => student.id == IdUSer.Id))
+                NameStudent.Text = entity.Name + " " + entity.Surname + " " + entity.Lastname;
 
-            var queryClass = from classStudent in DBConnect.db.Class
-                             from student in query
-                             where student.IdClass == classStudent.id
-                             select classStudent;
-
-            var queryLesson = (from less in DBConnect.db.Lesson
-                               from visitLeson in less.VisitLeson
-                               from student in query
-                               where visitLeson.IdStudent == student.id
-                               select less).Distinct();
-
-            var queryLessonEmployee = (from employee in DBConnect.db.Employee
-                                       from lessonEmployee in employee.LessonEmployee
-                                       from lessonStudent in DBConnect.db.StudentLesson
-                                       from studen in DBConnect.db.Student
-                                       where studen.id == studen.id
-                                       select employee).Distinct();
-
-            foreach (var entity in query)
-                NameStudent.Text = entity.Name + " " + entity.Surname;
-
-            foreach (var entity in queryClass)
+            foreach (var entity in DBConnect.db.Student.Where(s => s.id == IdUSer.Id).Select(c => c.Class))
                 ClassStudent.Text += entity.Name + "\n";
 
-            foreach (var entity in queryLessonEmployee)
+            foreach (var entity in DBConnect.db.StudentLesson.Where(c => c.IdStudent == IdUSer.Id).SelectMany(c => c.Lesson.LessonEmployee.Select(e => e.Employee)).Distinct())
                 ClassStudent.Text += entity.Name + " " + entity.Surname + " " + entity.Lastname + "\n";
 
-            foreach (var entity in queryLesson)
+            foreach (var entity in DBConnect.db.Student.Where(s => s.id == IdUSer.Id).SelectMany(c => c.StudentLesson.Select(l => l.Lesson)))
                 ListLesson.Items.Add(entity.Name);
         }
 
@@ -70,19 +51,10 @@ namespace School
             string lessons = "";
 
             foreach (var item in e.AddedItems)
-            {
                 lessons += item.ToString();
-            }
 
-            var query = from lesson in DBConnect.db.Lesson
-                        from visitLesson in lesson.VisitLeson
-                        where lesson.Name == lessons
-                        select visitLesson;
-
-            foreach (var entity in query)
-            {
+            foreach (var entity in (DBConnect.db.Student.SelectMany(c => c.VisitLeson).Where(c => c.Lesson.Name == lessons && c.Student.id == IdUSer.Id)))
                 ListVisit.Items.Add(entity.DateVisitLessons);
-            }
         }
     }
 }
